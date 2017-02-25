@@ -1,0 +1,25 @@
+{
+  "name": "foodbook",
+  "version": "1.0.0",
+  "description": "FoodBook to SQL Database Grails-React Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "FoodBook-G7"
+  },
+  "keywords": [
+    "FoodBook",
+    "G7",
+    "CS2212"
+  ],
+  "author": "Eric Belrose",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "webpack": "^2.2.1"
+  }
+}
