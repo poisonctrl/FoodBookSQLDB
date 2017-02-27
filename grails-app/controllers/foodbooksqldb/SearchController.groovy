@@ -43,4 +43,16 @@ class SearchController {
         respond theIDS
         theIDS.clear()
     }
+
+    def uniqueIngrs = []
+
+    def unqingr() {
+
+        db.eachRow("SELECT DISTINCT ingredient from ingredients"){ row ->
+            uniqueIngrs.add("$row.ingredient")
+        }
+        respond uniqueIngrs
+        uniqueIngrs.clear()
+    }
+
 }
