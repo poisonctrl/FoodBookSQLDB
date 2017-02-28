@@ -31,6 +31,7 @@ class RecipeController {
             recipe.add("$row.ingredient")
         }
         respond recipe
+        recipe.clear()
     }
 
     def wholerecipe() {
