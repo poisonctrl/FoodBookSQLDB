@@ -30,7 +30,7 @@ class SearchController {
 
     //returns current search parameter list
     def showSearchParams() {
-        response myList
+        respond myList
     }
 
     //creates an arraylist to store the IDs
