@@ -34,15 +34,25 @@ class SearchController {
 
     def theIDS = []
 
+    def count = 1
     def search() {
 
-        db.eachRow("SELECT * FROM ingredients " +
-                "WHERE ingredient LIKE \'%" + myList[0] + "%\'"){ row ->
-                theIDS.add("$row.recipeID")
+        def mysrch = "SELECT DISTINCT recipeid FROM ingredients WHERE ingredient LIKE \'%" + myList[0] + "%\'"
+
+        while (count<(myList.size())) {
+            mysrch += " OR ingredient LIKE '%" + myList[count] + "%\'"
+            count++
+        }
+
+        render mysrch
+
+        db.eachRow(mysrch){ row -> theIDS.add("$row.recipeID")
+
         }
         respond theIDS
         theIDS.clear()
     }
+
 
     def uniqueIngrs = []
 
