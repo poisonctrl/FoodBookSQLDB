@@ -60,6 +60,8 @@ class SearchController {
         }
         respond theIDS
         theIDS.clear()
+        count = 1
+
     }
 
 
