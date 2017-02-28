@@ -24,7 +24,6 @@ class RecipeController {
             recipe.add("$row.favoritecount")
             recipe.add("$row.recipeimagepath")
         }
-            respond recipe
     }
 
     def getingrs() {
