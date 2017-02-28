@@ -45,10 +45,11 @@ class RecipeController {
 
         db.eachRow("SELECT recipename, favoritecount, recipeimagepath FROM recipe WHERE ID = " + recipenumber)
                 { row ->
-                    recipe.add("$row.recipename")
-                    recipe.add("$row.favoritecount")
-                    recipe.add("$row.recipeimagepath")
+                    recipeicon.add("$row.recipename")
+                    recipeicon.add("$row.favoritecount")
+                    recipeicon.add("$row.recipeimagepath")
                 }
-        response recipeicon
+        respond recipeicon
+        recipeicon.clear()
     }
 }
