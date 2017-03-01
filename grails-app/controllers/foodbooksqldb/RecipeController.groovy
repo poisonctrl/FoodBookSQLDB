@@ -22,7 +22,8 @@ class RecipeController {
      * @return void, however respond with JSON arraylist containing recipename, steps, favcount, and image path
      */
     def myrecipe() {
-        db.eachRow("SELECT * from recipe WHERE ID = " + recipenumber){ row ->
+
+        db.eachRow("SELECT * from recipe WHERE ID = " + params.recipeid){ row ->
             recipe.add("$row.recipename")
             recipe.add("$row.recipesteps")
             recipe.add("$row.favoritecount")
@@ -36,18 +37,17 @@ class RecipeController {
      * @return void, however respond with JSON arraylist containing ingredient names
      */
     def getingrs() {
-        db.eachRow("SELECT DISTINCT ingredient from ingredients WHERE recipeid = " + recipenumber){ row ->
+        db.eachRow("SELECT DISTINCT ingredient from ingredients WHERE recipeid = " + params.recipeid){ row ->
             recipe.add("$row.ingredient")
         }
         respond recipe
-        recipe.clear()
     }
 
     //define a function to call the functions to get all parts to a recipe
     def wholerecipe() {
+        recipe.clear()
         myrecipe()
         getingrs()
-        recipe.clear()
     }
 
     /*define an abbreviated function to get everything about a recipe except
@@ -62,7 +62,7 @@ class RecipeController {
     def recipeicon(recipenumber) {
         def recipeicon = []
 
-        db.eachRow("SELECT recipename, favoritecount, recipeimagepath FROM recipe WHERE ID = " + recipenumber)
+        db.eachRow("SELECT recipename, favoritecount, recipeimagepath FROM recipe WHERE ID = " + params.recipeid)
                 { row ->
                     recipeicon.add("$row.recipename")
                     recipeicon.add("$row.favoritecount")
