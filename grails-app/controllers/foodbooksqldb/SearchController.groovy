@@ -5,7 +5,7 @@ import groovy.sql.*
 class SearchController {
 
     //instantiates a database session
-    def username = 'dbreadonly', password = '', database = 'foodbook', server = 'localhost:1433'
+    def username = 'dbreadonly', password = '', database = 'foodbook', server = 'localhost:3306'
     def db = Sql.newInstance("jdbc:mariadb://$server/$database", username, password, 'org.mariadb.jdbc.Driver')
 
     static responseFormats = ['json', 'xml']
@@ -75,4 +75,9 @@ class SearchController {
         uniqueIngrs.clear()
     }
 
+    //clears all ingredient, displays current search parameters
+    def clearparams() {
+        myList.clear()
+        showSearchParams()
+    }
 }
