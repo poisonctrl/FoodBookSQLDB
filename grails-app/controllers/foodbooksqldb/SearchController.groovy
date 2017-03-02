@@ -2,6 +2,7 @@ package foodbooksqldb
 
 import groovy.sql.*
 
+
 class SearchController {
 
     //instantiates a database session
@@ -51,19 +52,59 @@ class SearchController {
             count++
         }
 
-        //debug to view search query as submitted to database
-        render mysrch + "\n"
 
         //closure message to put the information into our arraylist
         db.eachRow(mysrch){ row -> theIDS.add("$row.recipeID")
-
         }
+
         respond theIDS
         theIDS.clear()
         count = 1
 
     }
 
+    def recnamesearch() {
+        //recipe name search query
+        String test;
+
+
+        def recparts = []
+
+        test = params.recname
+
+        recparts = test.split(' ')
+
+        def recids = []
+
+        def myrecnmsrch = "SELECT DISTINCT ID FROM recipe WHERE recipename LIKE \'%" + recparts[0] + "%\'"
+
+        def count = 1
+
+        //loop to add additional search parameters to a query
+        while (count<(recparts.size())) {
+            myrecnmsrch += " AND recipename LIKE '%" + recparts[count] + "%\'"
+            count++
+        }
+
+        //debug to view search query as submitted to database
+
+        //closure message to put the information into our arraylist
+        db.eachRow(myrecnmsrch){ row -> recids.add("$row.ID")
+
+        }
+        respond recids
+        recids.clear()
+        count = 1
+
+}
+
+    def getrecipes(recid) {
+        count = 0
+        def recs = []
+        while (count < (recid.size())) {
+            recs.add("redirect:/recipe/wholerecipe?recipeid=" + count)
+        }
+    }
 
     def uniqueIngrs = []
     //returns unique ingredients in the ingredients list
