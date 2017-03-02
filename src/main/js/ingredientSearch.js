@@ -56,7 +56,7 @@ var IngredientSearchComponent = React.createClass({
     render(){
         return(
             <div>
-                Enter a Recipe's ingredient(s) here:<br/>
+                Enter a Recipe's ingredient here:<br/>
                 <SearchBox callback={this.setIngredientState}/>
                 <br/>
                 <RecipeFeed name={this.state.ingredient}/>
