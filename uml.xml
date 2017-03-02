@@ -2,7 +2,7 @@
   <component name="UmlConfiguration">
     <option name="categories">
       <map>
-        <entry id="JAVA" categories="Constructors;Methods" />
+        <entry id="JAVA" categories="Constructors;Methods;Show One To One;Show One To Many;Others" />
       </map>
     </option>
   </component>
