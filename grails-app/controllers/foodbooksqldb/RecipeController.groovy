@@ -22,7 +22,6 @@ class RecipeController {
      * @return void, however respond with JSON arraylist containing recipename, steps, favcount, and image path
      */
     def myrecipe() {
-
         db.eachRow("SELECT * from recipe WHERE ID = " + params.recipeid){ row ->
             recipe.add("$row.recipename")
             recipe.add("$row.recipesteps")
@@ -37,8 +36,10 @@ class RecipeController {
      * @return void, however respond with JSON arraylist containing ingredient names
      */
     def getingrs() {
-        db.eachRow("SELECT DISTINCT ingredient from ingredients WHERE recipeid = " + params.recipeid){ row ->
-            recipe.add("$row.ingredient")
+        db.eachRow("SELECT DISTINCT ingredient, qtymeas_ingredient from ingredients WHERE recipeid = " + params.recipeid){ row ->
+            recipe.add("$row.qtymeas_ingredient" + " " + "$row.ingredient")
+
+
         }
         respond recipe
     }
