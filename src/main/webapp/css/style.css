@@ -1,0 +1,129 @@
+<style type="text/css">
+
+
+/*CLASS*/
+.div  {padding: 0;margin: 0;}
+
+.title{
+    border:5px black solid;
+    height: 200px;
+    width: 100%;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 10px;
+
+    }
+
+.first{
+    width: auto;
+    height: 250px;
+    border: 5px yellow solid;
+    margin: auto;
+}
+.second{
+    width: 100%;
+    height: 250px;
+    border: 5px yellow solid;
+    margin: auto;
+}
+.third{
+    width: 100%;
+    height: 250px;
+    border: 5px yellow solid;
+    margin: auto;
+}
+.forth{
+    width: 100%;
+    height: 250px;
+    border: 5px yellow solid;
+    margin: auto;
+}
+.fifth{
+    width: 100%;
+    height: 250px;
+    border: 5px yellow solid;
+    margin: auto;
+}
+
+.buttom_login{
+    left:1250px;
+    top: 100px;
+    position: absolute;
+    height: 40px;
+    width: auto;
+    border: 3px #c1e2b3 solid;
+    background-color: inherit;
+    margin: auto;
+    margin-bottom: 20px;
+
+
+}
+.buttom_signup{
+    left: 1100px;
+    top: 100px;
+    position: absolute;
+    height: 40px;
+    width: auto;
+    border: 3px #c1e2b3 solid;
+    background-color: inherit;
+    margin: auto;
+
+}
+
+/*ID*/
+    #title{
+        text-shadow: #E8E8E8 5px 5px;
+        font-size: 80px;
+        font-family: "Apple Braille";
+        padding-right: 10px;
+        margin-left: 20px;
+
+    }
+
+    #buttom{
+        font-size: 20px;
+        font-family: 'DejaVu Sans Mono', monospace;
+        text-align: center;
+        margin: auto;
+
+
+    }
+
+    #search_title{
+        font-size: 35px;
+        margin-left: 20px;
+        font-family: 'DejaVu Sans Mono', monospace;
+    }
+
+    #ing_list{
+        margin-left: 20px;
+        font-size: 20px;
+    }
+
+    #image_pack{
+        width: auto;
+        height: auto;
+        margin-left: 310px;
+        height: auto;
+        border: 0px green solid;
+        border-left-width: 0px;
+
+
+
+    }
+
+    #searchbar{
+        width: 300px;
+        height: 184%;
+        border:5px black solid;
+        position: absolute;
+        margin: auto;
+        float: left;
+        border-left-width: 0px;
+        border-top-width: 0px;
+        border-bottom-width: 0px;
+    }
+
+
+</style>
