@@ -49,6 +49,7 @@ dependencies {
     profile "org.grails.profiles:web"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.11.6"
     runtime "com.h2database:h2"
+    runtime 'org.grails.plugins:ajax-tags:1.0.0.RC1'
 
     compile fileTree(dir: 'lib', include: '*.jar')
     testCompile "org.grails:grails-plugin-testing"

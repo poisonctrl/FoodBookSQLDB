@@ -4,7 +4,6 @@
     <link rel = "stylesheet"
           type = "text/css"
           href="${resource(dir: 'css', file: '/style.css')}" />
-
 </head>
 
 <body class="div">
@@ -15,23 +14,45 @@
     <h1 id="title">
         FOODBOOK
     </h1>
-    <button class="buttom_signup" id="buttom">Sign Up</button>
-    <button class="buttom_login" id="buttom">Log In</button>
+    <button class="button_signup" id="button">Sign Up</button>
+    <button class="button_login" id="button">Log In</button>
 </div>
 
 
 <div name="searchBar" id="searchbar">
-    <h2>Section Under Construction<br>Use sections on right to interface the database</h2>
     <h1 id="search_title">Search By:</h1>
     <h2 id="ing_list">Ingredients List:
-    <g:form name = "srchBar" controller="search">
-    <g:textField name="ingredient">  </g:textField>
-    <g:actionSubmit value="Add Ingredient" action="addIngredient" />
-        <g:actionSubmit value="Rem Ingredient" action="remIngredient" />
-    </g:form>
-    <g:form name = "clrsrchBar" controller="search">
-    <g:actionSubmit value="Clear Ingredient List" action="clearparams" />
-    </g:form>
+        <g:form name = "srchBar" controller="search">
+            <g:textField name="ingredient" />
+            <div name="buttons">
+
+            <g:actionSubmit value="Add Ingredient" method="get" id="smbutton" action="addIngredient" />
+            <g:actionSubmit value="Rem Ingredient" method="get" id="smbutton" action="remIngredient" />
+            <BR />
+            <BR />
+            <g:actionSubmit value="Search by Ingredient" id="smbutton" action="search" />
+            <BR />
+
+        </g:form>
+
+    </div>
+        <HR />
+        <div name="clearbutton">
+            <g:form name = "clrsrchBar" controller="search">
+                <g:actionSubmit value="Clear Ingredient List" id="smbutton" action="clearparams" />
+                <g:actionSubmit value="Show Ingredient List" id="smbutton" action="showSearchParams" />
+            </g:form>
+        </div>
+
+        <div name="srchbutton">
+            <g:form name = "srchsrchBar" controller="search">
+                <HR />
+                <g:textField name="recname" />
+                <g:actionSubmit value="Search by Recipename" id="smbutton"action="recnamesearch" />
+            </g:form>
+            <BR />
+            <BR />
+        </div>
     </h2>
 
     <div id="recipeFeed" align="left"></div>
@@ -42,22 +63,8 @@
 
 
 <div name="image_pack" id="image_pack">
-    <h3>This is a prototype and as such below is the temporary way to interface in the recipe.</h3>
-    <h3>In section 3 you search the database and you will see a list of recipe numbers containing those ingredients in the list</h3>
-    <h3>Finally you can get the recipe in its raw format</h3>
         <br>
-        <br>
-
-        <H2>Search by Ingredient</H2>
-        <a href="${createLink(uri:'http://localhost:8080/search/search')}">Search</a>
-    <H2>Get Recipe</H2>
-    <a href="${createLink(uri:'http://localhost:8080/recipe/wholerecipe?recipeid=1')}">Get Recipe 1</a>
-    <a href="${createLink(uri:'http://localhost:8080/recipe/wholerecipe?recipeid=2')}">Get Recipe 2</a>
-    <a href="${createLink(uri:'http://localhost:8080/recipe/wholerecipe?recipeid=3')}">Get Recipe 3</a>
-    <a href="${createLink(uri:'http://localhost:8080/recipe/wholerecipe?recipeid=4')}">Get Recipe 4</a>
-    <a href="${createLink(uri:'http://localhost:8080/recipe/wholerecipe?recipeid=5')}">Get Recipe 5</a>
-
-
+    <br>
 </div>
 
 </body>

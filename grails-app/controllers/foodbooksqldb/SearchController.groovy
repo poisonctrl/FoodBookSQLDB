@@ -1,5 +1,6 @@
 package foodbooksqldb
 
+import grails.rest.RestfulController
 import groovy.sql.*
 
 
@@ -44,7 +45,10 @@ class SearchController {
      */
     def search() {
         //basic search query
-        def mysrch = "SELECT DISTINCT recipeid FROM ingredients WHERE ingredient LIKE \'%" + myList[0] + "%\'"
+        def mysrch = "SELECT DISTINCT recipe.ID, recipename, recipesteps, recipeimagepath\n" +
+                "FROM ingredients JOIN recipe\n" +
+                "ON ingredients.recipeid = recipe.ID\n" +
+                "WHERE ingredients.ingredient LIKE \'%" + myList[0] + "%\'"
 
         //loop to add additional search parameters to a query
         while (count<(myList.size())) {
@@ -54,7 +58,11 @@ class SearchController {
 
 
         //closure message to put the information into our arraylist
-        db.eachRow(mysrch){ row -> theIDS.add("$row.recipeID")
+        db.eachRow(mysrch) { row ->
+            render "Recipe ID: " + "$row.ID" + "<br />"
+            render "Recipe Name: " + "$row.recipename" + "<br />"
+            render "Recipe Steps: " + "$row.recipesteps" + "<br />"
+            render "<br />"
         }
 
         respond theIDS
@@ -76,7 +84,7 @@ class SearchController {
 
         def recids = []
 
-        def myrecnmsrch = "SELECT DISTINCT ID FROM recipe WHERE recipename LIKE \'%" + recparts[0] + "%\'"
+        def myrecnmsrch = "SELECT DISTINCT ID, recipename, recipesteps, favoritecount, recipeimagepath  FROM recipe WHERE recipename LIKE \'%" + recparts[0] + "%\'"
 
         def count = 1
 
@@ -89,8 +97,11 @@ class SearchController {
         //debug to view search query as submitted to database
 
         //closure message to put the information into our arraylist
-        db.eachRow(myrecnmsrch){ row -> recids.add("$row.ID")
-
+        db.eachRow(myrecnmsrch){ row ->
+            render "Recipe ID: " + "$row.ID" + "<br />"
+            render "Recipe Name: " + "$row.recipename" + "<br />"
+            render "Recipe Steps: " + "$row.recipesteps" + "<br />"
+            render "<br />"
         }
         respond recids
         recids.clear()

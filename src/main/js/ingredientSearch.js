@@ -7,10 +7,7 @@ import {RecipeFeed} from './recipeFeed';
 var SearchBox = React.createClass({
 
     getInitialState () {
-        return {
-            ingredient : ""
-        }
-    },
+      },
 
     // Event handler for text change
     handleChange (e) {
