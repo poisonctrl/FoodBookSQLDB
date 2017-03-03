@@ -1,7 +1,7 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="Directory '[building-a-react-app] - ...\complete\grails-app\init\building.a.react.app'" />
-    <option name="defaultScopeName" value="Directory '[building-a-react-app] - ...\complete\grails-app\init\building.a.react.app'" />
-    <option name="SEARCH_SCOPE" value="Directory '[building-a-react-app] - ...\complete\grails-app\init\building.a.react.app'" />
+    <option name="customScope" value="Project 'FoodBookSQLDB'" />
+    <option name="defaultScopeName" value="Project 'FoodBookSQLDB'" />
+    <option name="SEARCH_SCOPE" value="Project 'FoodBookSQLDB'" />
   </component>
 </application>
