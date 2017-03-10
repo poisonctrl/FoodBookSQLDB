@@ -83,7 +83,7 @@ class SearchController {
         recparts = test.split(' ')
 
         def recids = []
-
+        def allrecs = []
         def myrecnmsrch = "SELECT DISTINCT ID, recipename, recipesteps, favoritecount, recipeimagepath  FROM recipe WHERE recipename LIKE \'%" + recparts[0] + "%\'"
 
         def count = 1
@@ -98,12 +98,18 @@ class SearchController {
 
         //closure message to put the information into our arraylist
         db.eachRow(myrecnmsrch){ row ->
-            render "Recipe ID: " + "$row.ID" + "<br />"
-            render "Recipe Name: " + "$row.recipename" + "<br />"
-            render "Recipe Steps: " + "$row.recipesteps" + "<br />"
-            render "<br />"
+            recids.clear()
+            recids.add("$row.recipename")
+            recids.add("$row.recipesteps")
+            recids.add("$row.favoritecount")
+            recids.add("$row.recipeimagepath")
+            allrecs.add(recids)
+       //     render "Recipe ID: " + "$row.ID" + "<br />"
+        //    render "Recipe Name: " + "$row.recipename" + "<br />"
+          //  render "Recipe Steps: " + "$row.recipesteps" + "<br />"
+           // render "<br />"
         }
-        respond recids
+        respond allrecs
         recids.clear()
         count = 1
 
