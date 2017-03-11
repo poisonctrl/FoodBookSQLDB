@@ -17,7 +17,17 @@ class SearchController {
 
     //creates an arraylist of search parameters
     def myList = []
+
+    // count for the ingredients processed by getIngerdients()
     def ingredientCount = 0
+
+
+    //adds all ingedients separated by spaces
+    def addAllIngredients() {
+        def ingredientString = params.ingredient
+        myList = ingredientString.split("\\s+")
+    }
+
 
     //adds an ingredient, displays current search parameters
     def addIngredient() {
@@ -45,6 +55,10 @@ class SearchController {
     Currently has issue where while loop doesn't run on refreshed calls
      */
     def search() {
+        // adds ingredients to myList
+        addAllIngredients()
+
+
         //basic search query
         def mysrch = "SELECT DISTINCT recipe.ID, recipename, recipesteps, recipeimagepath\n" +
                 "FROM ingredients JOIN recipe\n" +
@@ -80,15 +94,18 @@ class SearchController {
                 lines.add(line)
                 recipeStepCount++
             }
+
             rdr.close()
             theReturnArray << recipeStepCount
             theReturnArray.addAll(lines)
         }
 
+        // returns the desired array
         render theReturnArray
 
         respond theIDS
         theIDS.clear()
+        myList.clear()
         count = 1
 
 
@@ -99,9 +116,8 @@ class SearchController {
         //recipe name search query
         String test;
 
-
+        def recparts = []
         test = params.recname
-
         recparts = test.split(' ')
 
         def recids = []
@@ -146,14 +162,12 @@ class SearchController {
             theReturnArray.addAll(lines)
         }
 
+        // returns the desired array
         render theReturnArray
 
         respond recids
         recids.clear()
         count = 1
-
-
-
     }
 
     def getrecipes(recid) {
