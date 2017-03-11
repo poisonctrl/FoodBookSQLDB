@@ -17,6 +17,7 @@ class SearchController {
 
     //creates an arraylist of search parameters
     def myList = []
+    def ingredientCount = 0
 
     //adds an ingredient, displays current search parameters
     def addIngredient() {
@@ -56,18 +57,41 @@ class SearchController {
             count++
         }
 
+        def theReturnArray = []
+        def tempArray2 = []
+        def tempString = []
 
         //closure message to put the information into our arraylist
         db.eachRow(mysrch) { row ->
-            render "Recipe ID: " + "$row.ID" + "<br />"
-            render "Recipe Name: " + "$row.recipename" + "<br />"
-            render "Recipe Steps: " + "$row.recipesteps" + "<br />"
-            render "<br />"
+            def theID = "$row.ID"
+
+            theReturnArray << theID
+            theReturnArray << "$row.recipename"
+            tempArray2 = getIngerdients(theID)
+            theReturnArray << ingredientCount
+            theReturnArray.addAll(tempArray2)
+
+            tempString = "$row.recipesteps"
+
+            BufferedReader rdr = new BufferedReader(new StringReader(tempString))
+            def lines = []
+            def recipeStepCount = 0
+            for (String line = rdr.readLine(); line != null; line = rdr.readLine()) {
+                lines.add(line)
+                recipeStepCount++
+            }
+            rdr.close()
+            theReturnArray << recipeStepCount
+            theReturnArray.addAll(lines)
         }
+
+        render theReturnArray
 
         respond theIDS
         theIDS.clear()
         count = 1
+
+
 
     }
 
@@ -76,14 +100,12 @@ class SearchController {
         String test;
 
 
-        def recparts = []
-
         test = params.recname
 
         recparts = test.split(' ')
 
         def recids = []
-        def allrecs = []
+
         def myrecnmsrch = "SELECT DISTINCT ID, recipename, recipesteps, favoritecount, recipeimagepath  FROM recipe WHERE recipename LIKE \'%" + recparts[0] + "%\'"
 
         def count = 1
@@ -96,24 +118,43 @@ class SearchController {
 
         //debug to view search query as submitted to database
 
+        def theReturnArray = []
+        def tempArray2 = []
+        def tempString = []
+
         //closure message to put the information into our arraylist
         db.eachRow(myrecnmsrch){ row ->
-            recids.clear()
-            recids.add("$row.recipename")
-            recids.add("$row.recipesteps")
-            recids.add("$row.favoritecount")
-            recids.add("$row.recipeimagepath")
-            allrecs.add(recids)
-       //     render "Recipe ID: " + "$row.ID" + "<br />"
-        //    render "Recipe Name: " + "$row.recipename" + "<br />"
-          //  render "Recipe Steps: " + "$row.recipesteps" + "<br />"
-           // render "<br />"
+            def theID = "$row.ID"
+
+            theReturnArray << theID
+            theReturnArray << "$row.recipename"
+            tempArray2 = getIngerdients(theID)
+            theReturnArray << ingredientCount
+            theReturnArray.addAll(tempArray2)
+
+            tempString = "$row.recipesteps"
+
+            BufferedReader rdr = new BufferedReader(new StringReader(tempString))
+            def lines = []
+            def recipeStepCount = 0
+            for (String line = rdr.readLine(); line != null; line = rdr.readLine()) {
+                lines.add(line)
+                recipeStepCount++
+            }
+            rdr.close()
+            theReturnArray << recipeStepCount
+            theReturnArray.addAll(lines)
         }
-        respond allrecs
+
+        render theReturnArray
+
+        respond recids
         recids.clear()
         count = 1
 
-}
+
+
+    }
 
     def getrecipes(recid) {
         count = 0
@@ -137,5 +178,17 @@ class SearchController {
     def clearparams() {
         myList.clear()
         showSearchParams()
+    }
+
+    def getIngerdients(recipeID) {
+        ingredientCount = 0
+        def tempArray = []
+
+        db.eachRow("SELECT ingredient  FROM ingredients WHERE recipeid LIKE " + recipeID){ row ->
+            tempArray.add("$row.ingredient")
+            ingredientCount++
+        }
+        return tempArray
+
     }
 }
