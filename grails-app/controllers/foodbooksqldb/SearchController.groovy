@@ -4,7 +4,8 @@ import grails.rest.RestfulController
 import groovy.sql.*
 
 
-class SearchController {
+class SearchController{
+
 
     //instantiates a database session
     def username = 'dbreadonly', password = '', database = 'foodbook', server = 'localhost:3306'
@@ -159,7 +160,6 @@ class SearchController {
         // returns the desired array
         respond theReturnArray
 
-        recids.clear()
         count = 1
     }
 
