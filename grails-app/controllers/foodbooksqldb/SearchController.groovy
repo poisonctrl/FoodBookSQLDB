@@ -78,7 +78,13 @@ class SearchController{
             theReturnArray << theID
             theReturnArray << "$row.recipename"
             tempArray2 = getIngerdients(theID)
-            theReturnArray << ingredientCount
+            if (ingredientCount == 1) {
+
+                theReturnArray << (ingredientCount + " ingredient:")
+            }
+            else {
+                theReturnArray << (ingredientCount + " ingredients:")
+            }
             theReturnArray.addAll(tempArray2)
 
             tempString = "$row.recipesteps"
@@ -92,7 +98,13 @@ class SearchController{
             }
 
             rdr.close()
-            theReturnArray << recipeStepCount
+            if (recipeStepCount == 1) {
+
+                theReturnArray << (recipeStepCount + " instruction:")
+            }
+            else {
+                theReturnArray << (recipeStepCount + " instructions:")
+            }
             theReturnArray.addAll(lines)
             theReturnArray.add("<BR />")
         }
@@ -139,7 +151,13 @@ class SearchController{
             theReturnArray << theID
             theReturnArray << "$row.recipename"
             tempArray2 = getIngerdients(theID)
-            theReturnArray << ingredientCount
+            if (ingredientCount == 1) {
+
+                theReturnArray << (ingredientCount + " ingredient:")
+            }
+            else {
+                theReturnArray << (ingredientCount + " ingredients:")
+            }
             theReturnArray.addAll(tempArray2)
 
             tempString = "$row.recipesteps"
@@ -152,7 +170,13 @@ class SearchController{
                 recipeStepCount++
             }
             rdr.close()
-            theReturnArray << recipeStepCount
+            if (recipeStepCount == 1) {
+
+                theReturnArray << (recipeStepCount + " instruction:")
+            }
+            else {
+                theReturnArray << (recipeStepCount + " instructions:")
+            }
             theReturnArray.addAll(lines)
             theReturnArray.add("<BR />")
         }
