@@ -12,9 +12,6 @@ class SearchController {
 
     static responseFormats = ['json', 'xml']
 
-    def index() {
-    }
-
     //creates an arraylist of search parameters
     def myList = []
 
@@ -46,8 +43,6 @@ class SearchController {
         respond myList
     }
 
-    //creates an arraylist to store the IDs
-    def theIDS = []
     //initiates a counter
     def count = 1
     //main search function
@@ -70,8 +65,6 @@ class SearchController {
             mysrch += " OR ingredient LIKE '%" + myList[count] + "%\'"
             count++
         }
-
-        render mysrch + "<BR />"
 
         def theReturnArray = []
         def tempArray2 = []
@@ -105,8 +98,6 @@ class SearchController {
 
         // returns the desired array
         respond theReturnArray
-
-        respond theIDS
         theIDS.clear()
         myList.clear()
         count = 1
@@ -123,7 +114,6 @@ class SearchController {
         test = params.recname
         recparts = test.split(' ')
 
-        def recids = []
 
         def myrecnmsrch = "SELECT DISTINCT ID, recipename, recipesteps, favoritecount, recipeimagepath  FROM recipe WHERE recipename LIKE \'%" + recparts[0] + "%\'"
 
@@ -163,12 +153,12 @@ class SearchController {
             rdr.close()
             theReturnArray << recipeStepCount
             theReturnArray.addAll(lines)
+            theReturnArray.add("<BR />")
         }
 
         // returns the desired array
-        render theReturnArray
+        respond theReturnArray
 
-        respond recids
         recids.clear()
         count = 1
     }
