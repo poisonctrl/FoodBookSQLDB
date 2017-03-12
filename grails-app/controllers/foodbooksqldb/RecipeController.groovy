@@ -39,7 +39,6 @@ class RecipeController {
 
     def getingrs() {
         def ingrcnt = 0
-        recipe.add("Faisal is the awesomest form of awesome")
         db.eachRow("SELECT DISTINCT ingredient, qtymeas_ingredient from ingredients WHERE recipeid = " + params.recipeid){ row ->
 
             recipe.add("$row.qtymeas_ingredient" + " " + "$row.ingredient")

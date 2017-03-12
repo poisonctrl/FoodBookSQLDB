@@ -71,6 +71,8 @@ class SearchController {
             count++
         }
 
+        render mysrch + "<BR />"
+
         def theReturnArray = []
         def tempArray2 = []
         def tempString = []
@@ -98,10 +100,11 @@ class SearchController {
             rdr.close()
             theReturnArray << recipeStepCount
             theReturnArray.addAll(lines)
+            theReturnArray.add("<BR />")
         }
 
         // returns the desired array
-        render theReturnArray
+        respond theReturnArray
 
         respond theIDS
         theIDS.clear()
