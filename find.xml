@@ -1,7 +1,7 @@
 <application>
   <component name="FindSettings">
-    <option name="customScope" value="Project 'FoodBookSQLDB'" />
-    <option name="defaultScopeName" value="Project 'FoodBookSQLDB'" />
-    <option name="SEARCH_SCOPE" value="Project 'FoodBookSQLDB'" />
+    <option name="customScope" value="File '[FoodBookSQLDB_main] - ...\src\main\js\index.js'" />
+    <option name="defaultScopeName" value="File '[FoodBookSQLDB_main] - ...\src\main\js\index.js'" />
+    <option name="SEARCH_SCOPE" value="File '[FoodBookSQLDB_main] - ...\src\main\js\index.js'" />
   </component>
 </application>
