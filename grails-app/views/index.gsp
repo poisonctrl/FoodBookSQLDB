@@ -75,15 +75,15 @@
             return(
                     <div className="recipeFeedContainer">
                         <div className="searchByName">Choose Name:</div>
-                        <button onClick={this.fetchByNameFromAPI("Five")} className="buttonFiveStar">Five Star Chicken</button>
-                        <button onClick={this.fetchByNameFromAPI("Four")} className="buttonFourStar">Four Star Chicken</button>
-                        <button onClick={this.fetchByNameFromAPI("Three")} className="buttonThreeStar">Three Star Chicken</button>
-                        <button onClick={this.fetchByNameFromAPI("Two")} className="buttonTwoStar">Two Star Chicken</button>
-                        <button onClick={this.fetchByNameFromAPI("One")} className="buttonOneStar">One Star Chicken</button>
+                        <button onClick={this.fetchByNameFromAPI.bind(this,"Five")} className="buttonFiveStar">Five Star Chicken</button>
+                        <button onClick={this.fetchByNameFromAPI.bind(this,"Four")} className="buttonFourStar">Four Star Chicken</button>
+                        <button onClick={this.fetchByNameFromAPI.bind(this,"Three")} className="buttonThreeStar">Three Star Chicken</button>
+                        <button onClick={this.fetchByNameFromAPI.bind(this,"Two")} className="buttonTwoStar">Two Star Chicken</button>
+                        <button onClick={this.fetchByNameFromAPI.bind(this,"One")} className="buttonOneStar">One Star Chicken</button>
                         <div className="searchByIngredient">Choose Ingredient:</div>
-                        <button onClick={this.fetchByIngredientFromAPI("Raw")} className="buttonRawChicken">Raw Chicken</button>
-                        <button onClick={this.fetchByIngredientFromAPI("Seasoning")} className="buttonSeasoning">Seasoning</button>
-                        <button onClick={this.fetchByIngredientFromAPI("Love")} className="buttonLove">Love</button>
+                        <button onClick={this.fetchByIngredientFromAPI.bind(this,"Raw")} className="buttonRawChicken">Raw Chicken</button>
+                        <button onClick={this.fetchByIngredientFromAPI.bind(this,"Seasoning")} className="buttonSeasoning">Seasoning</button>
+                        <button onClick={this.fetchByIngredientFromAPI.bind(this,"Love")} className="buttonLove">Love</button>
                         <div>
                             {this.state.recipes}
                         </div>
