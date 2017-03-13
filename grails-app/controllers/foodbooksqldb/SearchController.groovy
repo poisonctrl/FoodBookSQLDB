@@ -111,7 +111,7 @@ class SearchController{
 
         // returns the desired array
         respond theReturnArray
-        theIDS.clear()
+
         myList.clear()
         count = 1
 

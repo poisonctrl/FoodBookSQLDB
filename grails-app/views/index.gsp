@@ -40,7 +40,7 @@
                         response.json().then(json => {
                             let results = [];
                             for (let i = 0; i < json.length; i++) {
-                                results.push(<div>json[i]</div>);
+                                results.push(<div>{json[i]}</div>);
                             }
                             this.setState({recipes: results});
                         });
@@ -59,7 +59,7 @@
                         response.json().then(json => {
                             let results = [];
                             for (let i = 0; i < json.length; i++) {
-                                results.push(<div>json[i]</div>);
+                                results.push(<div>{json[i]}</div>);
                             }
                             this.setState({recipes: results});
                         });
@@ -85,7 +85,7 @@
                         <button onClick={this.fetchByIngredientFromAPI("Seasoning")} className="buttonSeasoning">Seasoning</button>
                         <button onClick={this.fetchByIngredientFromAPI("Love")} className="buttonLove">Love</button>
                         <div>
-                            {this.state.statuses}
+                            {this.state.recipes}
                         </div>
                     </div>
             );
@@ -98,3 +98,4 @@
 </script>
 
 </body>
+
