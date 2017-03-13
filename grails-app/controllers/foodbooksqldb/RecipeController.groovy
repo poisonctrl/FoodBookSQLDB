@@ -15,7 +15,10 @@ class RecipeController {
 
     //initialize an arraylist to hold the returned recipe parameters
     def recipe = []
-
+    def ingredient = [] // array to hold the ingredients in
+    def qtymeas = [] // the quantity measurements
+    def recipeName // name of the new recipe
+    def recipeSteps // recipe steps
     //define a function to call an SQL query the fields from the recipe table
     /**
      * myrecipe is called by /recipe/myrecipe?recipeid=<recipenumber>
@@ -71,5 +74,51 @@ class RecipeController {
                 }
         respond recipeicon
         recipeicon.clear()
+    }
+    // add ingredient to list
+    def addIngredient(){
+        ingredient.add(params.ingredient)
+        qtymeas.add(params.qtymeas)
+    }
+    // remove ingredient from list
+    def removeIngredient(){
+
+        def index=null;
+        for (int i=0;i <ingredient.size();i++){
+            if (ingredient[i]==params.ingredient){
+                index = i //where is it in the list
+            }
+        }
+        if (index == null){ // if the ingredient was not found
+            render "Ingredient not in list."
+        }
+
+        ingredient.remove(params.ingredient)
+        qtymeas.remove(index) // remove corresponding quantity measurement
+    }
+    //add the name of the recipe
+    def addName(){
+        recipeName = params.name
+    }
+    //add the steps of the recipe
+    def addSteps(){
+        recipeSteps = params.steps
+    }
+    def add(){
+
+        db.execute("INSERT INTO recipe (recipename,recipesteps) VALUES ($recipeName,$recipeSteps)") //insert
+
+        //get the number of entries currently in table
+        def result = db.firstRow('select count(*) as cont from recipe')
+        long id = result.cont
+        def params = []
+        for (int i=0;i<ingredient.size();i++){
+
+            params = [id,ingredient[i],qtymeas[i]]
+            db.execute 'INSERT INTO ingredients (recipeid,ingredient,qtymeas_ingredient) VALUES (?,?,?)',params //insert
+
+        }
+
+
     }
 }
