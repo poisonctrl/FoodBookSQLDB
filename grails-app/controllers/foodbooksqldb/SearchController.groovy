@@ -4,7 +4,8 @@ import grails.rest.RestfulController
 import groovy.sql.*
 
 
-class SearchController {
+class SearchController{
+
 
     //instantiates a database session
     def username = 'dbreadonly', password = '', database = 'foodbook', server = 'localhost:3306'
@@ -12,11 +13,19 @@ class SearchController {
 
     static responseFormats = ['json', 'xml']
 
-    def index() {
-    }
-
     //creates an arraylist of search parameters
     def myList = []
+
+    // count for the ingredients processed by getIngerdients()
+    def ingredientCount = 0
+
+
+    //adds all ingedients separated by spaces
+    def addAllIngredients() {
+        def ingredientString = params.ingredient
+        myList = ingredientString.split("\\s+")
+    }
+
 
     //adds an ingredient, displays current search parameters
     def addIngredient() {
@@ -35,8 +44,6 @@ class SearchController {
         respond myList
     }
 
-    //creates an arraylist to store the IDs
-    def theIDS = []
     //initiates a counter
     def count = 1
     //main search function
@@ -44,6 +51,10 @@ class SearchController {
     Currently has issue where while loop doesn't run on refreshed calls
      */
     def search() {
+        // adds ingredients to myList
+        addAllIngredients()
+
+
         //basic search query
         def mysrch = "SELECT DISTINCT recipe.ID, recipename, recipesteps, recipeimagepath\n" +
                 "FROM ingredients JOIN recipe\n" +
@@ -56,18 +67,55 @@ class SearchController {
             count++
         }
 
+        def theReturnArray = []
+        def tempArray2 = []
+        def tempString = []
 
         //closure message to put the information into our arraylist
         db.eachRow(mysrch) { row ->
-            render "Recipe ID: " + "$row.ID" + "<br />"
-            render "Recipe Name: " + "$row.recipename" + "<br />"
-            render "Recipe Steps: " + "$row.recipesteps" + "<br />"
-            render "<br />"
+            def theID = "$row.ID"
+
+            theReturnArray << theID
+            theReturnArray << "$row.recipename"
+            tempArray2 = getIngerdients(theID)
+            if (ingredientCount == 1) {
+
+                theReturnArray << (ingredientCount + " ingredient:")
+            }
+            else {
+                theReturnArray << (ingredientCount + " ingredients:")
+            }
+            theReturnArray.addAll(tempArray2)
+
+            tempString = "$row.recipesteps"
+
+            BufferedReader rdr = new BufferedReader(new StringReader(tempString))
+            def lines = []
+            def recipeStepCount = 0
+            for (String line = rdr.readLine(); line != null; line = rdr.readLine()) {
+                lines.add(line)
+                recipeStepCount++
+            }
+
+            rdr.close()
+            if (recipeStepCount == 1) {
+
+                theReturnArray << (recipeStepCount + " instruction:")
+            }
+            else {
+                theReturnArray << (recipeStepCount + " instructions:")
+            }
+            theReturnArray.addAll(lines)
+            theReturnArray.add("<BR />")
         }
 
-        respond theIDS
+        // returns the desired array
+        respond theReturnArray
         theIDS.clear()
+        myList.clear()
         count = 1
+
+
 
     }
 
@@ -75,14 +123,10 @@ class SearchController {
         //recipe name search query
         String test;
 
-
         def recparts = []
-
         test = params.recname
-
         recparts = test.split(' ')
 
-        def recids = []
 
         def myrecnmsrch = "SELECT DISTINCT ID, recipename, recipesteps, favoritecount, recipeimagepath  FROM recipe WHERE recipename LIKE \'%" + recparts[0] + "%\'"
 
@@ -96,18 +140,52 @@ class SearchController {
 
         //debug to view search query as submitted to database
 
+        def theReturnArray = []
+        def tempArray2 = []
+        def tempString = []
+
         //closure message to put the information into our arraylist
         db.eachRow(myrecnmsrch){ row ->
-            render "Recipe ID: " + "$row.ID" + "<br />"
-            render "Recipe Name: " + "$row.recipename" + "<br />"
-            render "Recipe Steps: " + "$row.recipesteps" + "<br />"
-            render "<br />"
-        }
-        respond recids
-        recids.clear()
-        count = 1
+            def theID = "$row.ID"
 
-}
+            theReturnArray << theID
+            theReturnArray << "$row.recipename"
+            tempArray2 = getIngerdients(theID)
+            if (ingredientCount == 1) {
+
+                theReturnArray << (ingredientCount + " ingredient:")
+            }
+            else {
+                theReturnArray << (ingredientCount + " ingredients:")
+            }
+            theReturnArray.addAll(tempArray2)
+
+            tempString = "$row.recipesteps"
+
+            BufferedReader rdr = new BufferedReader(new StringReader(tempString))
+            def lines = []
+            def recipeStepCount = 0
+            for (String line = rdr.readLine(); line != null; line = rdr.readLine()) {
+                lines.add(line)
+                recipeStepCount++
+            }
+            rdr.close()
+            if (recipeStepCount == 1) {
+
+                theReturnArray << (recipeStepCount + " instruction:")
+            }
+            else {
+                theReturnArray << (recipeStepCount + " instructions:")
+            }
+            theReturnArray.addAll(lines)
+            theReturnArray.add("<BR />")
+        }
+
+        // returns the desired array
+        respond theReturnArray
+
+        count = 1
+    }
 
     def getrecipes(recid) {
         count = 0
@@ -131,5 +209,17 @@ class SearchController {
     def clearparams() {
         myList.clear()
         showSearchParams()
+    }
+
+    def getIngerdients(recipeID) {
+        ingredientCount = 0
+        def tempArray = []
+
+        db.eachRow("SELECT ingredient  FROM ingredients WHERE recipeid LIKE " + recipeID){ row ->
+            tempArray.add("$row.ingredient")
+            ingredientCount++
+        }
+        return tempArray
+
     }
 }

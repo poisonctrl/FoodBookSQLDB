@@ -38,12 +38,16 @@ class RecipeController {
      * myrecipe is called by /recipe/getingrs?recipeid=<recipenumber>
      * @return void, however respond with JSON arraylist containing ingredient names
      */
+
+
     def getingrs() {
+        def ingrcnt = 0
         db.eachRow("SELECT DISTINCT ingredient, qtymeas_ingredient from ingredients WHERE recipeid = " + params.recipeid){ row ->
+
             recipe.add("$row.qtymeas_ingredient" + " " + "$row.ingredient")
-
-
+            ++ingrcnt
         }
+        recipe.add (ingrcnt)
         respond recipe
     }
 
