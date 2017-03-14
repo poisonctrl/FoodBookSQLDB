@@ -75,7 +75,7 @@ class SearchController{
         db.eachRow(mysrch) { row ->
             def theID = "$row.ID"
 
-            theReturnArray << theID
+            theReturnArray << ("Recipe ID: " + theID)
             theReturnArray << "$row.recipename"
             tempArray2 = getIngerdients(theID)
             if (ingredientCount == 1) {
@@ -106,7 +106,7 @@ class SearchController{
                 theReturnArray << (recipeStepCount + " instructions:")
             }
             theReturnArray.addAll(lines)
-            theReturnArray.add("<BR />")
+            theReturnArray.add(" ")
         }
 
         // returns the desired array
@@ -148,7 +148,7 @@ class SearchController{
         db.eachRow(myrecnmsrch){ row ->
             def theID = "$row.ID"
 
-            theReturnArray << theID
+            theReturnArray << ("Recipe ID: " + theID)
             theReturnArray << "$row.recipename"
             tempArray2 = getIngerdients(theID)
             if (ingredientCount == 1) {
@@ -178,7 +178,7 @@ class SearchController{
                 theReturnArray << (recipeStepCount + " instructions:")
             }
             theReturnArray.addAll(lines)
-            theReturnArray.add("<BR />")
+            theReturnArray.add(" ")
         }
 
         // returns the desired array
