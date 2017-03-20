@@ -6,44 +6,12 @@
 
 .title{
     border:5px black solid;
-    height: 20%;
+    height: auto;
     width: 100%;
     border-left-width: 0px;
     border-right-width: 0px;
     border-top-width: 0px;
     border-bottom-width: 10px;
-
-    }
-
-.first{
-    width: auto;
-    height: 250px;
-    border: 5px yellow solid;
-    margin: auto;
-}
-.second{
-    width: 100%;
-    height: 250px;
-    border: 5px yellow solid;
-    margin: auto;
-}
-.third{
-    width: 100%;
-    height: 250px;
-    border: 5px yellow solid;
-    margin: auto;
-}
-.forth{
-    width: 100%;
-    height: 250px;
-    border: 5px yellow solid;
-    margin: auto;
-}
-.fifth{
-    width: 100%;
-    height: 250px;
-    border: 5px yellow solid;
-    margin: auto;
 }
 
 .button_login{
@@ -56,8 +24,6 @@
     background-color: inherit;
     margin: auto;
     margin-bottom: 20px;
-
-
 }
 .button_signup{
     left: 70%;
@@ -68,75 +34,63 @@
     border: 3px #c1e2b3 solid;
     background-color: inherit;
     margin: auto;
+}
+
+
+/*ID*/
+#title{
+    text-shadow: #E8E8E8 5px 5px;
+    font-size: 80px;
+    font-family: "Apple Braille";
+    margin-left: auto;
 
 }
 
-/*ID*/
-    #title{
-        text-shadow: #E8E8E8 5px 5px;
-        font-size: 80px;
-        font-family: "Apple Braille";
-        padding-right: 10px;
-        margin-left: 20px;
+#recipes{
+    border: thick;
+}
 
-    }
+#button{
+    font-size: 20px;
+    font-family: 'DejaVu Sans Mono', monospace;
+    text-align: center;
+    margin: 10px;
+}
 
-    #button{
-        font-size: 20px;
-        font-family: 'DejaVu Sans Mono', monospace;
-        text-align: center;
-        margin: auto;
+#search_title{
+    font-size: 35px;
+    margin-left: 20px;
+    font-family: 'DejaVu Sans Mono', monospace;
+}
 
+#image_pack{
+    width: auto;
+    height: 80%;
+    border:5px black solid;
+    position: relative;
+    float: left;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+}
 
-    }
+#searchbar{
+    width: auto;
+    height: 80%;
+    position: relative;
+    margin: auto;
+    float: left;
+}
 
-    #search_title{
-        font-size: 35px;
-        margin-left: 20px;
-        font-family: 'DejaVu Sans Mono', monospace;
-    }
-
-    #ing_list{
-        margin-left: 20px;
-        font-size: 20px;
-    }
-
-    #image_pack{
-        width: auto;
-        height: auto;
-        margin-left: 310px;
-        height: auto;
-        border: 0px green solid;
-        border-left-width: 0px;
-
-    }
-
-    #searchbar{
-        width: 27%;
-        height: 80%;
-        border:5px black solid;
-        position: absolute;
-        margin: auto;
-        float: left;
-        border-left-width: 0px;
-        border-top-width: 0px;
-        border-bottom-width: 0px;
-    }
-
-     #buttons{
-	margin: 0 auto; 
-     }
-
-     #clearbutton {
- 	margin: 0 auto; 
-     }
-
-    #smbutton{
-        font-size: 10px;
-        font-family: 'DejaVu Sans Mono', monospace;
-        text-align: center;
-        margin: auto;
-    background-color: inherit;
-     }
+#inbox {
+    font-size: 12px;
+    font-family: 'DejaVu Sans Mono', monospace;
+    margin: 10px;
+    width: 90%;
+    height: 25px;
+    background-color: lightgrey;
+    color: black;
+}
+}
 
 </style>

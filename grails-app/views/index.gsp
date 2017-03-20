@@ -27,7 +27,12 @@
         render() {
             return(
                     <h1 id="title" className="title">FOODBOOK</h1>);
+            <div>
+                <form onSubmit={this.loginRedirect}>
+
                     <input type="submit" value="Login" />
+                </form>
+            </div>
 
         }
 
@@ -39,8 +44,7 @@
     var RecipeFeed = React.createClass({
 
         getInitialState() {
-            return {recipesa: [],
-                recipesb:[],
+            return {recipes: [],
                 ingredients : "",
                 recipename : ""
             };
@@ -92,7 +96,7 @@
                         response.json().then(json => {
                             let results = [];
                             for (let i = 0; i < json.length; i++) {
-                                results.push(<div>{json[i],<br/>}</div>);
+                                results.push(<div id="recipes">{json[i],<br/>}</div>);
                             }
                             this.setState ({recipes: results});
                         });
@@ -107,23 +111,31 @@
         render() {
             return (
                     <div>
-                        <form onSubmit={this.handleIngrSubmit}>
-                            <label>
-                                <input type="text" defaultValue={this.state.ingredients} onChange={this.handleIngrChange}/>
-                            </label>
+                        <div name="searchBar" id="searchbar">
 
-                            <td/> <input type="submit" value="Search by Ingredient" />
-                        </form>
-                        <form onSubmit={this.handleNameSubmit}>
-                            <label>
-                                <input type="text" defaultValue={this.state.recipename} onChange={this.handleNameChange}/>
-                            </label>
-                            <td/> <input type="submit" value="Search by Recipe" />
-                            <hr/>
-                        </form>
-                        {this.state.recipes}
+                            <form onSubmit={this.handleIngrSubmit}>
+                                <label>
+                                    <input type="text" id="inbox" defaultValue={this.state.ingredients} onChange={this.handleIngrChange}/>
 
+                                </label>
+                                <br/>
+                                <td/> <input type="submit" id="button" value="Search by Ingredient" />
+                            </form>
+
+                            <form onSubmit={this.handleNameSubmit}>
+                                <label>
+                                    <input type="text" id="inbox" defaultValue={this.state.recipename} onChange={this.handleNameChange}/>
+                                </label>
+                                <br/>
+                                <td/> <input type="submit" id="button" value="Search by Recipe" />
+                            </form>
+
+                        </div>
+                        <div name="image_pack" id="image_pack">
+                            {this.state.recipes}
+                        </div>
                     </div>
+
             );
         }
     });
