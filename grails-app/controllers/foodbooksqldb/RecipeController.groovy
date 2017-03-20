@@ -1,11 +1,16 @@
 package foodbooksqldb
 
+import grails.rest.RestfulController
 import groovy.sql.*
 
-class RecipeController {
+class RecipeController extends RestfulController {
 
     static responseFormats = ['json', 'xml']
 
+
+    RecipeController () {
+        super (User)
+    }
     //Establish Database Connection
     def username = 'dbreadonly', password = '', database = 'foodbook', server = 'localhost:3306'
     def db = Sql.newInstance("jdbc:mariadb://$server/$database", username, password, 'org.mariadb.jdbc.Driver')

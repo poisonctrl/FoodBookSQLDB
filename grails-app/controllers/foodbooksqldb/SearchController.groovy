@@ -4,8 +4,11 @@ import grails.rest.RestfulController
 import groovy.sql.*
 
 
-class SearchController{
+class SearchController extends RestfulController {
 
+    SearchController () {
+        super(User)
+    }
 
     //instantiates a database session
     def username = 'dbreadonly', password = '', database = 'foodbook', server = 'localhost:3306'
@@ -16,7 +19,7 @@ class SearchController{
     //creates an arraylist of search parameters
     def myList = []
 
-    // count for the ingredients processed by getIngerdients()
+    // count for the ingredients processed by getIngredients()
     def ingredientCount = 0
 
 
@@ -77,14 +80,15 @@ class SearchController{
 
             theReturnArray << ("Recipe ID: " + theID)
             theReturnArray << "$row.recipename"
-            tempArray2 = getIngerdients(theID)
-            if (ingredientCount == 1) {
+            tempArray2 = getIngredients(theID)
 
+            if (ingredientCount == 1) {
                 theReturnArray << (ingredientCount + " ingredient:")
             }
             else {
                 theReturnArray << (ingredientCount + " ingredients:")
             }
+
             theReturnArray.addAll(tempArray2)
 
             tempString = "$row.recipesteps"
@@ -112,7 +116,7 @@ class SearchController{
         // returns the desired array
         respond theReturnArray
 
-        myList.clear()
+       //myList.clear()
         count = 1
 
 
@@ -150,9 +154,8 @@ class SearchController{
 
             theReturnArray << ("Recipe ID: " + theID)
             theReturnArray << "$row.recipename"
-            tempArray2 = getIngerdients(theID)
+            tempArray2 = getIngredients(theID)
             if (ingredientCount == 1) {
-
                 theReturnArray << (ingredientCount + " ingredient:")
             }
             else {
@@ -171,7 +174,6 @@ class SearchController{
             }
             rdr.close()
             if (recipeStepCount == 1) {
-
                 theReturnArray << (recipeStepCount + " instruction:")
             }
             else {
@@ -180,7 +182,6 @@ class SearchController{
             theReturnArray.addAll(lines)
             theReturnArray.add(" ")
         }
-
         // returns the desired array
         respond theReturnArray
 
@@ -190,7 +191,7 @@ class SearchController{
     def getrecipes(recid) {
         count = 0
         def recs = []
-        while (count < (recid.size())) {
+        while (count <= (recid.size())) {
             recs.add("redirect:/recipe/wholerecipe?recipeid=" + count)
         }
     }
@@ -211,7 +212,7 @@ class SearchController{
         showSearchParams()
     }
 
-    def getIngerdients(recipeID) {
+    def getIngredients(recipeID) {
         ingredientCount = 0
         def tempArray = []
 
