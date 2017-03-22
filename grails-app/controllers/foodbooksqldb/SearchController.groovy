@@ -76,21 +76,13 @@ class SearchController extends RestfulController {
 
         //closure message to put the information into our arraylist
         db.eachRow(mysrch) { row ->
+            theReturnArray.add(" ")
             def theID = "$row.ID"
 
-            theReturnArray << ("Recipe ID: " + theID)
             theReturnArray << "$row.recipename"
             tempArray2 = getIngredients(theID)
-
-            if (ingredientCount == 1) {
-                theReturnArray << (ingredientCount + " ingredient:")
-            }
-            else {
-                theReturnArray << (ingredientCount + " ingredients:")
-            }
-
+            theReturnArray << ingredientCount
             theReturnArray.addAll(tempArray2)
-
             tempString = "$row.recipesteps"
 
             BufferedReader rdr = new BufferedReader(new StringReader(tempString))
@@ -102,15 +94,9 @@ class SearchController extends RestfulController {
             }
 
             rdr.close()
-            if (recipeStepCount == 1) {
-
-                theReturnArray << (recipeStepCount + " instruction:")
-            }
-            else {
-                theReturnArray << (recipeStepCount + " instructions:")
-            }
+            theReturnArray << recipeStepCount
             theReturnArray.addAll(lines)
-            theReturnArray.add(" ")
+
         }
 
         // returns the desired array
@@ -125,7 +111,7 @@ class SearchController extends RestfulController {
 
     def recnamesearch() {
         //recipe name search query
-        String test;
+        String test
 
         def recparts = []
         test = params.recname
@@ -151,16 +137,11 @@ class SearchController extends RestfulController {
         //closure message to put the information into our arraylist
         db.eachRow(myrecnmsrch){ row ->
             def theID = "$row.ID"
-
-            theReturnArray << ("Recipe ID: " + theID)
+            theReturnArray.add(" ")
             theReturnArray << "$row.recipename"
             tempArray2 = getIngredients(theID)
-            if (ingredientCount == 1) {
-                theReturnArray << (ingredientCount + " ingredient:")
-            }
-            else {
-                theReturnArray << (ingredientCount + " ingredients:")
-            }
+            theReturnArray << ingredientCount
+
             theReturnArray.addAll(tempArray2)
 
             tempString = "$row.recipesteps"
@@ -173,19 +154,14 @@ class SearchController extends RestfulController {
                 recipeStepCount++
             }
             rdr.close()
-            if (recipeStepCount == 1) {
-                theReturnArray << (recipeStepCount + " instruction:")
-            }
-            else {
-                theReturnArray << (recipeStepCount + " instructions:")
-            }
+            theReturnArray << recipeStepCount
             theReturnArray.addAll(lines)
-            theReturnArray.add(" ")
+
         }
         // returns the desired array
         respond theReturnArray
 
-        count = 1
+        //count = 1
     }
 
     def getrecipes(recid) {
