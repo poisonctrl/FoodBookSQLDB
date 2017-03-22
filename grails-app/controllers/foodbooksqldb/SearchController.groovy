@@ -10,6 +10,15 @@ class SearchController extends RestfulController {
         super(User)
     }
 
+    //recipe map
+    def recipe = [
+            name: "",
+            stepcnt: "",
+            steps: [],
+            ingrcnt:"",
+            ingrs: []
+    ]
+
     //instantiates a database session
     def username = 'dbreadonly', password = '', database = 'foodbook', server = 'localhost:3306'
     def db = Sql.newInstance("jdbc:mariadb://$server/$database", username, password, 'org.mariadb.jdbc.Driver')
@@ -76,13 +85,14 @@ class SearchController extends RestfulController {
 
         //closure message to put the information into our arraylist
         db.eachRow(mysrch) { row ->
-            theReturnArray.add(" ")
             def theID = "$row.ID"
 
-            theReturnArray << "$row.recipename"
+            recipe.name =  "$row.recipename"
+
             tempArray2 = getIngredients(theID)
-            theReturnArray << ingredientCount
-            theReturnArray.addAll(tempArray2)
+            recipe.ingrcnt = ingredientCount
+            recipe.ingrs = tempArray2
+
             tempString = "$row.recipesteps"
 
             BufferedReader rdr = new BufferedReader(new StringReader(tempString))
@@ -94,8 +104,10 @@ class SearchController extends RestfulController {
             }
 
             rdr.close()
-            theReturnArray << recipeStepCount
-            theReturnArray.addAll(lines)
+
+            recipe.stepcnt = recipeStepCount
+            recipe.steps = lines
+            theReturnArray.add(recipe)
 
         }
 
@@ -112,6 +124,7 @@ class SearchController extends RestfulController {
     def recnamesearch() {
         //recipe name search query
         String test
+
 
         def recparts = []
         test = params.recname
@@ -135,14 +148,14 @@ class SearchController extends RestfulController {
         def tempString = []
 
         //closure message to put the information into our arraylist
-        db.eachRow(myrecnmsrch){ row ->
+        db.eachRow(myrecnmsrch) { row ->
             def theID = "$row.ID"
-            theReturnArray.add(" ")
-            theReturnArray << "$row.recipename"
-            tempArray2 = getIngredients(theID)
-            theReturnArray << ingredientCount
 
-            theReturnArray.addAll(tempArray2)
+            recipe.name =  "$row.recipename"
+
+            tempArray2 = getIngredients(theID)
+            recipe.ingrcnt = ingredientCount
+            recipe.ingrs = tempArray2
 
             tempString = "$row.recipesteps"
 
@@ -153,9 +166,12 @@ class SearchController extends RestfulController {
                 lines.add(line)
                 recipeStepCount++
             }
+
             rdr.close()
-            theReturnArray << recipeStepCount
-            theReturnArray.addAll(lines)
+
+            recipe.stepcnt = recipeStepCount
+            recipe.steps = lines
+            theReturnArray.add(recipe)
 
         }
         // returns the desired array
@@ -192,8 +208,8 @@ class SearchController extends RestfulController {
         ingredientCount = 0
         def tempArray = []
 
-        db.eachRow("SELECT ingredient  FROM ingredients WHERE recipeid LIKE " + recipeID){ row ->
-            tempArray.add("$row.ingredient")
+        db.eachRow("SELECT ingredient,qtymeas_ingredient  FROM ingredients WHERE recipeid LIKE " + recipeID){ row ->
+            tempArray.add("$row.qtymeas_ingredient" + " " + "$row.ingredient")
             ingredientCount++
         }
         return tempArray
