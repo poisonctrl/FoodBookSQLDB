@@ -16,6 +16,7 @@
 <body>
 
 <div id="content"></div>
+<div id="login"></div>
 <div id="recipeFeed"></div>
 
 <script type="text/jsx">
@@ -25,21 +26,25 @@
     var Title = React.createClass({
 
         render() {
-            return(
-                    <h1 id="title" className="title">FOODBOOK</h1>);
-            <div>
-                <form onSubmit={this.loginRedirect}>
-
-                    <input type="submit" value="Login" />
-                </form>
-            </div>
-
+            return(<h1 id="title" className="title">FOODBOOK</h1>);
         }
 
 
 
     });
     React.render(<Title />, document.getElementById('content'));
+
+    var Login = React.createClass({
+        render() {
+            return(
+                    <div>
+                        <form onSubmit={this.loginRedirect}>
+                            <input type="submit" value="Login" />
+                        </form>
+                    </div>);
+        }
+    });
+    React.render(<Login />, document.getElementById('login'));
 
     var RecipeFeed = React.createClass({
 
