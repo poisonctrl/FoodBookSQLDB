@@ -16,9 +16,9 @@
 
 .button_login{
     left: 80%;
-    top: 100px;
+    top: 25px;
     position: absolute;
-    height: 40px;
+    height: auto;
     width: auto;
     border: 3px #c1e2b3 solid;
     background-color: inherit;
@@ -40,7 +40,7 @@
 /*ID*/
 #title{
     text-shadow: #E8E8E8 5px 5px;
-    font-size: 80px;
+    font-size: auto;
     font-family: "Apple Braille";
     margin-left: auto;
 
@@ -109,7 +109,6 @@
     margin: 0;
     padding: 0;
 }
+
 }
-
-
 </style>

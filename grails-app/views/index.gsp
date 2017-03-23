@@ -39,7 +39,7 @@
             return(
                     <div>
                         <form onSubmit={this.loginRedirect}>
-                            <input type="submit" value="Login" />
+                            <input type="submit" className="button_login" value="Login" />
                         </form>
                     </div>);
         }
