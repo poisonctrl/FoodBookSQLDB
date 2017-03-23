@@ -85,13 +85,18 @@ class SearchController extends RestfulController {
 
         //closure message to put the information into our arraylist
         db.eachRow(mysrch) { row ->
+            //recipe map
+            def recipe = [
+                    name: "",
+                    stepcnt: "",
+                    steps: [],
+                    ingrcnt:"",
+                    ingrs: []
+            ]
+
             def theID = "$row.ID"
 
-            recipe.name =  "$row.recipename"
-
             tempArray2 = getIngredients(theID)
-            recipe.ingrcnt = ingredientCount
-            recipe.ingrs = tempArray2
 
             tempString = "$row.recipesteps"
 
@@ -104,7 +109,9 @@ class SearchController extends RestfulController {
             }
 
             rdr.close()
-
+            recipe.name = "$row.recipename"
+            recipe.ingrcnt = ingredientCount
+            recipe.ingrs = tempArray2
             recipe.stepcnt = recipeStepCount
             recipe.steps = lines
             theReturnArray.add(recipe)
@@ -122,6 +129,7 @@ class SearchController extends RestfulController {
     }
 
     def recnamesearch() {
+
         //recipe name search query
         String test
 
@@ -149,6 +157,14 @@ class SearchController extends RestfulController {
 
         //closure message to put the information into our arraylist
         db.eachRow(myrecnmsrch) { row ->
+            //recipe map
+            def recipe = [
+                    name: "",
+                    stepcnt: "",
+                    steps: [],
+                    ingrcnt:"",
+                    ingrs: []
+            ]
             def theID = "$row.ID"
 
             recipe.name =  "$row.recipename"

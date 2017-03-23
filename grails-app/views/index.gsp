@@ -16,6 +16,7 @@
 <body>
 
 <div id="content"></div>
+<div id="login"></div>
 <div id="recipeFeed"></div>
 
 <script type="text/jsx">
@@ -25,21 +26,25 @@
     var Title = React.createClass({
 
         render() {
-            return(
-                    <h1 id="title" className="title">FOODBOOK</h1>);
-            <div>
-                <form onSubmit={this.loginRedirect}>
-
-                    <input type="submit" value="Login" />
-                </form>
-            </div>
-
+            return(<h1 id="title" className="title">FOODBOOK</h1>);
         }
 
 
 
     });
     React.render(<Title />, document.getElementById('content'));
+
+    var Login = React.createClass({
+        render() {
+            return(
+                    <div>
+                        <form onSubmit={this.loginRedirect}>
+                            <input type="submit" className="button_login" value="Login" />
+                        </form>
+                    </div>);
+        }
+    });
+    React.render(<Login />, document.getElementById('login'));
 
     var RecipeFeed = React.createClass({
 
@@ -72,26 +77,26 @@
                     if(response.ok) {
                         response.json().then(json => {
                             let results = [];
-                           for (let i = 0; i < json.length; i++) {
+                            for (let i = 0; i < json.length; i++) {
                                 results.push(
-                                    <div id="recipe">
-                                    <div id="name">
-                                        {json[i].name}
-                                        <br/>
-                                    </div>
-                                    <div id = "ingrs">
-                                        {json[i].ingrs.map((number) =>
-                                                <li>{number}</li>
-                                        )}
-                                        <br/>
-                                    </div>
-                                    <div id = "steps">
-                                        {json[i].steps.map((number) =>
-                                                <li>{number}</li>
-                                        )}
-                                    </div>
-                                    <br/>
-                                </div>
+                                        <div id="recipe">
+                                            <div id="name">
+                                                {json[i].name}
+                                                <br/>
+                                            </div>
+                                            <div id = "ingrs">
+                                                {json[i].ingrs.map((number) =>
+                                                        <li>{number}</li>
+                                                )}
+                                                <br/>
+                                            </div>
+                                            <div id = "steps">
+                                                {json[i].steps.map((number) =>
+                                                        <li>{number}</li>
+                                                )}
+                                            </div>
+                                            <br/>
+                                        </div>
                                 );
                             }
                             if (response.json.isNull) { let results = ['No Result']
@@ -118,24 +123,24 @@
                             let results = [];
                             for (let i = 0; i < json.length; i++) {
                                 results.push(
-                                    <div id="recipe">
-                                        <div id="name">
-                                            {json[i].name}
+                                        <div id="recipe">
+                                            <div id="name">
+                                                {json[i].name}
+                                                <br/>
+                                            </div>
+                                            <div id = "ingrs">
+                                                {json[i].ingrs.map((number) =>
+                                                        <li>{number}</li>
+                                                )}
+                                                <br/>
+                                            </div>
+                                            <div id = "steps">
+                                                {json[i].steps.map((number) =>
+                                                        <li>{number}</li>
+                                                )}
+                                            </div>
                                             <br/>
                                         </div>
-                                        <div id = "ingrs">
-                                            {json[i].ingrs.map((number) =>
-                                                    <li>{number}</li>
-                                            )}
-                                            <br/>
-                                        </div>
-                                        <div id = "steps">
-                                            {json[i].steps.map((number) =>
-                                                    <li>{number}</li>
-                                            )}
-                                        </div>
-                                        <br/>
-                                    </div>
                                 );
                             }
                             this.setState ({recipes: results});
@@ -184,4 +189,3 @@
 </script>
 
 </body>
-
