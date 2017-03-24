@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html>
 
 <head>
@@ -16,35 +17,35 @@
 <body>
 
 <div id="content"></div>
-<div id="login"></div>
 <div id="recipeFeed"></div>
+<div id="login"></div>
+<div id="signup"></div>
 
 <script type="text/jsx">
 
 
 
+
+
     var Title = React.createClass({
 
+
+        redirectMe(){
+            window.location.replace("http://localhost:8080/login/auth");
+        },
         render() {
-            return(<h1 id="title" className="title">FOODBOOK</h1>);
+            return(
+                <div>
+                    <h1 id="title" className="title">FOODBOOK</h1>
+                    <button onClick={this.redirectMe}>Login/Sign-Up</button>
+                </div>
+            )
         }
 
 
 
     });
     React.render(<Title />, document.getElementById('content'));
-
-    var Login = React.createClass({
-        render() {
-            return(
-                    <div>
-                        <form onSubmit={this.loginRedirect}>
-                            <input type="submit" className="button_login" value="Login" />
-                        </form>
-                    </div>);
-        }
-    });
-    React.render(<Login />, document.getElementById('login'));
 
     var RecipeFeed = React.createClass({
 
@@ -64,6 +65,7 @@
         handleNameChange (e) {
             // Prevent following the link.
             e.preventDefault();
+
             this.setState({ recipename : e.target.value  , success : "..."});
         },
 
@@ -77,29 +79,8 @@
                     if(response.ok) {
                         response.json().then(json => {
                             let results = [];
-                           for (let i = 0; i < json.length; i++) {
-                                results.push(
-                                    <div id="recipe">
-                                    <div id="name">
-                                        {json[i].name}
-                                        <br/>
-                                    </div>
-                                    <div id = "ingrs">
-                                        {json[i].ingrs.map((number) =>
-                                                <li>{number}</li>
-                                        )}
-                                        <br/>
-                                    </div>
-                                    <div id = "steps">
-                                        {json[i].steps.map((number) =>
-                                                <li>{number}</li>
-                                        )}
-                                    </div>
-                                    <br/>
-                                </div>
-                                );
-                            }
-                            if (response.json.isNull) { let results = ['No Result']
+                            for (let i = 0; i < json.length; i++) {
+                                results.push(<div id="recipes">{json[i],<br/>}</div>);
                             }
                             this.setState({recipes: results});
                         });
@@ -122,26 +103,7 @@
                         response.json().then(json => {
                             let results = [];
                             for (let i = 0; i < json.length; i++) {
-                                results.push(
-                                    <div id="recipe">
-                                        <div id="name">
-                                            {json[i].name}
-                                            <br/>
-                                        </div>
-                                        <div id = "ingrs">
-                                            {json[i].ingrs.map((number) =>
-                                                    <li>{number}</li>
-                                            )}
-                                            <br/>
-                                        </div>
-                                        <div id = "steps">
-                                            {json[i].steps.map((number) =>
-                                                    <li>{number}</li>
-                                            )}
-                                        </div>
-                                        <br/>
-                                    </div>
-                                );
+                                results.push(<div id="recipes">{json[i],<br/>}</div>);
                             }
                             this.setState ({recipes: results});
                         });
