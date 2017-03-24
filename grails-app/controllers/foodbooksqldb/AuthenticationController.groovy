@@ -7,7 +7,4 @@ import groovy.sql.Sql
 import groovy.sql.GroovyRowResult
 
 class AuthenticationController {
-    def signIn {
-
-    }
 }

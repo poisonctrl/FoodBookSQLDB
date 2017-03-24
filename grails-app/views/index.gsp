@@ -1,79 +1,192 @@
 <!doctype html>
 <html>
+
 <head>
-    <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
 
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
+    <link rel = "stylesheet"
+          type = "text/css"
+          href="${resource(dir: 'css', file: '/style.css')}" />
+
+    <title>FOODBOOK</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/JSXTransformer.js"></script>
 </head>
+
 <body>
-    <content tag="nav">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Application Status <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Environment: ${grails.util.Environment.current.name}</a></li>
-                <li><a href="#">App profile: ${grailsApplication.config.grails?.profile}</a></li>
-                <li><a href="#">App version:
-                    <g:meta name="info.app.version"/></a>
-                </li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Grails version:
-                    <g:meta name="info.app.grailsVersion"/></a>
-                </li>
-                <li><a href="#">Groovy version: ${GroovySystem.getVersion()}</a></li>
-                <li><a href="#">JVM version: ${System.getProperty('java.version')}</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="#">Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Artefacts <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Controllers: ${grailsApplication.controllerClasses.size()}</a></li>
-                <li><a href="#">Domains: ${grailsApplication.domainClasses.size()}</a></li>
-                <li><a href="#">Services: ${grailsApplication.serviceClasses.size()}</a></li>
-                <li><a href="#">Tag Libraries: ${grailsApplication.tagLibClasses.size()}</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-                    <li><a href="#">${plugin.name} - ${plugin.version}</a></li>
-                </g:each>
-            </ul>
-        </li>
-    </content>
 
-    <div class="svg" role="presentation">
-        <div class="grails-logo-container">
-            <asset:image src="grails-cupsonly-logo-white.svg" class="grails-logo"/>
-        </div>
-    </div>
+<div id="content"></div>
+<div id="login"></div>
+<div id="recipeFeed"></div>
 
-    <div id="content" role="main">
-        <section class="row colset-2-its">
-            <h1>Welcome to Grails</h1>
+<script type="text/jsx">
 
-            <p>
-                Congratulations, you have successfully started your first Grails application! At the moment
-                this is the default page, feel free to modify it to either redirect to a controller or display
-                whatever content you may choose. Below is a list of controllers that are currently deployed in
-                this application, click on each to execute its default action:
-            </p>
 
-            <div id="controllers" role="navigation">
-                <h2>Available Controllers:</h2>
-                <ul>
-                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                        <li class="controller">
-                            <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
-                        </li>
-                    </g:each>
-                </ul>
-            </div>
-        </section>
-    </div>
+
+    var Title = React.createClass({
+
+        render() {
+            return(<h1 id="title" className="title">FOODBOOK</h1>);
+        }
+
+
+
+    });
+    React.render(<Title />, document.getElementById('content'));
+
+    var Login = React.createClass({
+        render() {
+            return(
+                    <div>
+                        <form action="../login/auth/">
+                            <input type="submit" className="button_login" value="Login" />
+                        </form>
+                    </div>);
+        }
+    });
+    React.render(<Login />, document.getElementById('login'));
+
+    var RecipeFeed = React.createClass({
+
+        getInitialState() {
+            return {recipes: [],
+                ingredients : "",
+                recipename : ""
+            };
+        },
+
+        handleIngrChange (e) {
+            // Prevent following the link.
+            e.preventDefault();
+            this.setState({ ingredients : e.target.value  , success : "..."});
+        },
+
+        handleNameChange (e) {
+            // Prevent following the link.
+            e.preventDefault();
+            this.setState({ recipename : e.target.value  , success : "..."});
+        },
+
+        handleNameSubmit(e) {
+            // Prevents reinitialization
+            e.preventDefault();
+            this.setState({recipes: []});
+            let recipename = this.state.recipename;
+            fetch('http://localhost:8080/search/recnamesearch?recname=' + recipename)
+                .then(response => {
+                    if(response.ok) {
+                        response.json().then(json => {
+                            let results = [];
+                           for (let i = 0; i < json.length; i++) {
+                                results.push(
+                                    <div id="recipe">
+                                    <div id="name">
+                                        {json[i].name}
+                                        <br/>
+                                    </div>
+                                    <div id = "ingrs">
+                                        {json[i].ingrs.map((number) =>
+                                                <li>{number}</li>
+                                        )}
+                                        <br/>
+                                    </div>
+                                    <div id = "steps">
+                                        {json[i].steps.map((number) =>
+                                                <li>{number}</li>
+                                        )}
+                                    </div>
+                                    <br/>
+                                </div>
+                                );
+                            }
+                            if (response.json.isNull) { let results = ['No Result']
+                            }
+                            this.setState({recipes: results});
+                        });
+                    }
+                    else{
+                        // If response is NOT OKAY (e.g. 404), clear the recipes.
+                        this.setState({recipes: []});
+                    }
+                });
+        },
+
+        handleIngrSubmit(e) {
+            // Prevents reinitialization
+            e.preventDefault();
+            this.setState({recipes: []});
+            let ingredients = this.state.ingredients;
+            fetch('http://localhost:8080/search/search?ingredient=' + ingredients)
+                .then(response => {
+                    if(response.ok) {
+                        response.json().then(json => {
+                            let results = [];
+                            for (let i = 0; i < json.length; i++) {
+                                results.push(
+                                    <div id="recipe">
+                                        <div id="name">
+                                            {json[i].name}
+                                            <br/>
+                                        </div>
+                                        <div id = "ingrs">
+                                            {json[i].ingrs.map((number) =>
+                                                    <li>{number}</li>
+                                            )}
+                                            <br/>
+                                        </div>
+                                        <div id = "steps">
+                                            {json[i].steps.map((number) =>
+                                                    <li>{number}</li>
+                                            )}
+                                        </div>
+                                        <br/>
+                                    </div>
+                                );
+                            }
+                            this.setState ({recipes: results});
+                        });
+                    }
+                    else{
+                        // If response is NOT OKAY (e.g. 404), clear the recipes.
+                        this.setState({recipes: []});
+                    }
+                });
+        },
+
+        render() {
+            return (
+                    <div>
+                        <div name="searchBar" id="searchbar">
+
+                            <form onSubmit={this.handleIngrSubmit}>
+                                <label>
+                                    <input type="text" id="inbox" defaultValue={this.state.ingredients} onChange={this.handleIngrChange}/>
+
+                                </label>
+                                <br/>
+                                <td/> <input type="submit" id="button" value="Search by Ingredient" />
+                            </form>
+
+                            <form onSubmit={this.handleNameSubmit}>
+                                <label>
+                                    <input type="text" id="inbox" defaultValue={this.state.recipename} onChange={this.handleNameChange}/>
+                                </label>
+                                <br/>
+                                <td/> <input type="submit" id="button" value="Search by Recipe" />
+                            </form>
+
+                        </div>
+                        <div name="image_pack" id="image_pack">
+                            {this.state.recipes}
+                        </div>
+                    </div>
+
+            );
+        }
+    });
+    React.render(<RecipeFeed />, document.getElementById('recipeFeed'));
+
+</script>
 
 </body>
-</html>
+

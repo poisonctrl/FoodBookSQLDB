@@ -1,0 +1,114 @@
+<style type="text/css">
+
+
+/*CLASS*/
+.div  {padding: 0;margin: 0;}
+
+.title{
+    border:5px black solid;
+    height: auto;
+    width: 100%;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 10px;
+}
+
+.button_login{
+    left: 80%;
+    top: 25px;
+    position: absolute;
+    height: auto;
+    width: auto;
+    border: 3px #c1e2b3 solid;
+    background-color: inherit;
+    margin: auto;
+    margin-bottom: 20px;
+}
+.button_signup{
+    left: 70%;
+    top: 100px;
+    position: absolute;
+    height: 40px;
+    width: auto;
+    border: 3px #c1e2b3 solid;
+    background-color: inherit;
+    margin: auto;
+}
+
+
+/*ID*/
+#title{
+    text-shadow: #E8E8E8 5px 5px;
+    font-size: auto;
+    font-family: "Apple Braille";
+    margin-left: auto;
+
+}
+
+#recipes{
+    border: thick;
+}
+
+#button{
+    font-size: 20px;
+    font-family: 'DejaVu Sans Mono', monospace;
+    text-align: center;
+    margin: 10px;
+}
+
+#search_title{
+    font-size: 35px;
+    margin-left: 20px;
+    font-family: 'DejaVu Sans Mono', monospace;
+}
+
+#image_pack{
+    width: auto;
+    height: 80%;
+    border:5px black solid;
+    position: relative;
+    float: left;
+    border-right-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+}
+
+#searchbar{
+    width: auto;
+    height: 80%;
+    position: relative;
+    margin: auto;
+    float: left;
+}
+
+#inbox {
+    font-size: 12px;
+    font-family: 'DejaVu Sans Mono', monospace;
+    margin: 10px;
+    width: 90%;
+    height: 25px;
+    background-color: lightgrey;
+    color: black;
+}
+
+#name {
+    font-size: 20px;
+    font-family: 'DejaVu Sans Mono', monospace;
+}
+
+#ingrs {
+    font-size: 14px;
+    font-family: 'DejaVu Sans Mono', monospace;
+}
+
+#steps {
+    font-size: 14px;
+    font-family: 'DejaVu Sans Mono', monospace;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+}
+</style>
