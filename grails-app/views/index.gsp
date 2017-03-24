@@ -38,7 +38,7 @@
         render() {
             return(
                     <div>
-                        <form onSubmit={this.loginRedirect}>
+                        <form action="../login/auth/">
                             <input type="submit" className="button_login" value="Login" />
                         </form>
                     </div>);
