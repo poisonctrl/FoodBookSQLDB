@@ -9,13 +9,17 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/error',          access: ['permitAll']],
 	[pattern: '/index',          access: ['permitAll']],
 	[pattern: '/index.gsp',      access: ['permitAll']],
+	[pattern: '/index',          access: ['permitAll']],
+	[pattern: '/index.gsp',      access: ['permitAll']],
+	[pattern: '/recadd',         access: ['fullyAuthenticated']],
+	[pattern: '/recadd.gsp',     access: ['fullyAuthenticated']],
 	[pattern: '/shutdown',       access: ['permitAll']],
 	[pattern: '/assets/**',      access: ['permitAll']],
 	[pattern: '/**/js/**',       access: ['permitAll']],
 	[pattern: '/**/css/**',      access: ['permitAll']],
 	[pattern: '/**/images/**',   access: ['permitAll']],
 	[pattern: '/search/**', 	 access: ['permitAll']],
-	[pattern: '/recipe/addIngredient/**',	access: ['fullyAuthenticated']],
+	[pattern: '/recipe/**/**',	access: ['fullyAuthenticated']],
 	[pattern: '/dbconsole/**',		    	access: ['permitAll']],
 	[pattern: '/**/favicon.ico', access: ['permitAll']]
 ]

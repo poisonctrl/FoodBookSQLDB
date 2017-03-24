@@ -113,6 +113,7 @@ class RecipeController extends RestfulController {
     def addSteps(){
         recipeSteps = params.steps
     }
+
     def add(){
 
         db.execute("INSERT INTO recipe (recipename,recipesteps) VALUES ($recipeName,$recipeSteps)") //insert
@@ -127,7 +128,5 @@ class RecipeController extends RestfulController {
             db.execute 'INSERT INTO ingredients (recipeid,ingredient,qtymeas_ingredient) VALUES (?,?,?)',params //insert
 
         }
-
-
     }
 }

@@ -121,7 +121,7 @@ class SearchController extends RestfulController {
         // returns the desired array
         respond theReturnArray
 
-       //myList.clear()
+        //myList.clear()
         count = 1
 
 
