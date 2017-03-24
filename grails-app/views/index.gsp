@@ -38,8 +38,8 @@
         render() {
             return(
                     <div>
-                        <form action="../login/auth/">
-                            <input type="submit" className="button_login" value="Login" />
+                        <form action="../recadd">
+                            <input type="submit" className="button_login" value="Add a Recipe (Requires Login)" />
                         </form>
                     </div>);
         }
