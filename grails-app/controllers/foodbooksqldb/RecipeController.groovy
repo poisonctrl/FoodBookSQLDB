@@ -91,7 +91,6 @@ class RecipeController extends RestfulController {
     }
     // remove ingredient from list
     def removeIngredient(){
-
         def index=null;
         for (int i=0;i <ingredient.size();i++){
             if (ingredient[i]==params.ingredient){
