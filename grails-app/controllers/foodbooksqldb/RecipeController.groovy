@@ -5,9 +5,10 @@ import groovy.sql.*
 
 class RecipeController extends RestfulController {
 
+    //specify the response formats for obejcts returned by methods in this class
     static responseFormats = ['json', 'xml']
 
-
+    //Required by the RestfulController implementation
     RecipeController () {
         super (User)
     }
@@ -112,7 +113,8 @@ class RecipeController extends RestfulController {
     def addSteps(){
         recipeSteps = params.steps
     }
-
+    //final api call required to add a recipe to the database worked but threw a spring exception after spring was added
+    //still added a recipe to the database
     def add(){
 
         db.execute("INSERT INTO recipe (recipename,recipesteps) VALUES ($recipeName,$recipeSteps)") //insert

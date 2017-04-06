@@ -1,7 +1,6 @@
 package foodbooksqldb
-/**
- * Created by poisonctrl on 2/25/2017.
- */
+
+//This class was a stub that was never populated with an actual authentication controller due to time limitations
 
 import groovy.sql.Sql
 import groovy.sql.GroovyRowResult

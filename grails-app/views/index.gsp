@@ -22,7 +22,7 @@
 <script type="text/jsx">
 
 
-
+    //rendered standard header
     var Title = React.createClass({
 
         render() {
@@ -33,7 +33,7 @@
 
     });
     React.render(<Title />, document.getElementById('content'));
-
+    //rendered the login button
     var Login = React.createClass({
         render() {
             return(
@@ -45,7 +45,7 @@
         }
     });
     React.render(<Login />, document.getElementById('login'));
-
+    //rendered the returned recipe feed
     var RecipeFeed = React.createClass({
 
         getInitialState() {
@@ -54,24 +54,26 @@
                 recipename : ""
             };
         },
-
+        //set state of ingredient input to be used as passed parameter to the API call
         handleIngrChange (e) {
             // Prevent following the link.
             e.preventDefault();
             this.setState({ ingredients : e.target.value  , success : "..."});
         },
-
+        //set state of recipe input to be used as passed parameter to the API call
         handleNameChange (e) {
             // Prevent following the link.
             e.preventDefault();
             this.setState({ recipename : e.target.value  , success : "..."});
         },
-
+        //actually called the API for recipe name
         handleNameSubmit(e) {
             // Prevents reinitialization
             e.preventDefault();
             this.setState({recipes: []});
             let recipename = this.state.recipename;
+            //fetch call sent recipe name state parameter from text box and returned JSON hash map then spearated
+            //components into individual div objects
             fetch('http://localhost:8080/search/recnamesearch?recname=' + recipename)
                 .then(response => {
                     if(response.ok) {
@@ -110,12 +112,14 @@
                     }
                 });
         },
-
+        //created the recipe results for ingredients passed to the recipe feed
         handleIngrSubmit(e) {
             // Prevents reinitialization
             e.preventDefault();
             this.setState({recipes: []});
             let ingredients = this.state.ingredients;
+            //fetch call sent ingredient state parameter from text box and returned JSON hash map then spearated
+            //components into individual div objects
             fetch('http://localhost:8080/search/search?ingredient=' + ingredients)
                 .then(response => {
                     if(response.ok) {
@@ -152,7 +156,7 @@
                     }
                 });
         },
-
+        //rendered the input boxes and the recipe feed
         render() {
             return (
                     <div>

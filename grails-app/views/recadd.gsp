@@ -21,6 +21,7 @@
 
 
 <script type="text/jsx">
+    //create standard header for FoodBook
     var Title = React.createClass({
 
         render() {
@@ -29,6 +30,7 @@
     });
     React.render(<Title />, document.getElementById('content'));
 
+    //create home button
     var Login = React.createClass({
         render() {
             return(
@@ -41,6 +43,7 @@
     });
     React.render(<Login />, document.getElementById('home'));
 
+    //create recipe add page with 4 input boxes, set states, and fetch post calls (oringially posts but failed so tried just plain fetch call)
     var RecADD = React.createClass({
         getInitialState() {
             return {recipes: [],
@@ -104,7 +107,7 @@
                     }
                 })
         },
-
+        //displayed the result of each query
         render() {
             return(
                     <div>
